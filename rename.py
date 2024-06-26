@@ -9,8 +9,9 @@ def main():
     args = parser.parse_args()
     with args.path.open(newline='\r\n') as source:
         contents = source.read()
+    contents = re.sub(r'\bPlugin_FLEP\b', 'Plugin_FlexiblePatcher', contents).replace('https://raw.githubusercontent.com/asasas9500/flep/master/downloads/Manual_FLEP.pdf', 'https://raw.githubusercontent.com/FlexiblePatcher/FlexiblePatcher/master/downloads/Manual_FlexiblePatcher.pdf')
     with args.path.open('w', newline='\r\n') as destination:
-        destination.write(re.sub(r'\bPlugin_FLEP\b', 'Plugin_FlexiblePatcher', contents))
+        destination.write(contents)
 
 
 if __name__ == '__main__':
