@@ -4,18 +4,7 @@ import os
 
 import custom_patches
 import external_variables
-
-
-def count_of_type(type):
-    if type == 1 or type == 3 or type == 5:
-        return 1
-    if type == 2 or type == 4 or type == 6:
-        return 2
-    if type == 9:
-        return 3
-    if type == 0 or type == 7:
-        return 4
-    return type // 100 + 1
+import helpers
 
 
 def main():
@@ -41,7 +30,7 @@ def main():
         for current_parameter in current_patch.parameter:
             offset_list = current_parameter.offset.split(',')
             start = parameter_buffer.next_start()
-            count = count_of_type(current_parameter.type)
+            count = helpers.count_of_type(current_parameter.type)
             for offset in offset_list:
                 nested_offset_list = offset.split('|')
                 nested_count = count // len(nested_offset_list)
