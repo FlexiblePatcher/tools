@@ -11,4 +11,4 @@ class Region:
         return self.start < region.start + region.size and self.start + self.size > region.start
 
     def to_string(self):
-        return '{} [{}] [{}] [{:X}]'.format(self.name, self.entry, self.index, self.start)
+        return '{} [{}] [{}]'.format(self.name, self.entry, self.index)

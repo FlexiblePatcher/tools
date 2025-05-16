@@ -13,6 +13,7 @@ def main():
     parser.add_argument('path', type=pathlib.Path)
     parser.add_argument('name_report_path', type=pathlib.Path)
     parser.add_argument('region_report_path', type=pathlib.Path)
+    parser.add_argument('region_list_path', type=pathlib.Path)
     args = parser.parse_args()
     patch_set = custom_patches.read_patch_set(args.path)
     name_list = []
@@ -35,6 +36,9 @@ def main():
         for region, test_region in itertools.combinations(region_list, 2):
             if region.number != test_region.number and region.overlap(test_region):
                 destination.write('{} & {}\n'.format(region.to_string(), test_region.to_string()))
+    with args.region_list_path.open('w', newline='\r\n') as destination:
+        for region in sorted(region_list, key=lambda region: region.start):
+            destination.write('{:X} - {:X} | {}\n'.format(region.start, region.start + region.size, region.to_string()))
 
 
 if __name__ == '__main__':
